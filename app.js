@@ -26,8 +26,8 @@ function add_Items() {
     user_Task.value = "";
 }
 
-function edit_Items() {
-    firebase.database().ref('Tasks/').once("value", getuserData)
+function get_Tasks() {
+    firebase.database().ref('Tasks').once("value", getuserData)
 }
 function getuserData(snapshot) {
     snapshot.forEach(userSnapshot => {
@@ -35,6 +35,7 @@ function getuserData(snapshot) {
         var task = userSnapshot.val().task;
         var child_List = document.createElement('li');
         var txt_Child = document.createTextNode(task);
+        var txt_key = document.createTextNode(k);
         var delete_Button = document.createElement('button');
         var txt_Button = document.createTextNode('Delete Task');
         delete_Button.setAttribute("onclick", "delete_Tasks(this)");
@@ -42,15 +43,28 @@ function getuserData(snapshot) {
         var edit_Button = document.createElement('button');
         var txt_Button_1 = document.createTextNode('Edit Task');
         edit_Button.setAttribute("onclick", "edit_Tasks(this)");
+        child_List.setAttribute('class', "class_List_Style")
         edit_Button.appendChild(txt_Button_1);
+        child_List.append(txt_key);
         child_List.append(txt_Child);
         child_List.append(delete_Button);
         child_List.append(edit_Button);
         parent_List.append(child_List);
     });
-
 }
-edit_Items()
+get_Tasks()
+
+function edit_Tasks(e) {
+    console.log(e.parentNode.childNodes[0].nodeValue);
+    console.log(e.parentNode.childNodes[1].nodeValue);
+    var edit_Tasks=prompt("Enter Your Tasks",e.parentNode.childNodes[1].nodeValue);
+    
+    firebase.database().ref('Tasks/'+e.parentNode.childNodes[0].nodeValue).set({
+        key:e.parentNode.firstChild.nodeValue,
+        task:edit_Tasks
+    });
+    location.reload(true);
+}
 // function delete_Tasks(e) {
 //     e.parentNode.remove();
 // }
