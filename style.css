@@ -1,4 +1,28 @@
-.class_List_Style
-{
+@media screen and(max-width:500px) {
+    .add_Box {
+        background-color: red !important;
+    }
+}
 
+.input_field_Style {
+    width: 310px !important;
+    height: 40px !important;
+}
+
+.btn_add_Style {
+    border: 2px solid black !important;
+    border-radius: 60px !important;
+    width: 100px !important;
+    height: 95px !important;
+}
+
+.btn_delete_Style {
+    border: 2px solid black !important;
+    border-radius: 60px !important;
+    width: 100px !important;
+    height: 95px !important;
+}
+
+.heading_Style {
+    padding-left: 70px;
 }
